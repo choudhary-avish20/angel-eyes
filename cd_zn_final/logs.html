@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>File Log</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload" style="font-family: Avenir Next LT Pro; font-weight: bold; font-size: 20px;">
+  <!-- Page Wrapper -->
+  <div id="page-wrapper">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Panel (Banner) -->
+      <section class="panel banner right">
+        <div class="content color0 span-3-75" style="width: 65vw;">
+          <img src="images/logo.png" alt="" style="border-radius: 10%; width: 120px; height: 120px; display: flex; position: relative; left: 45%; top: -10%;">
+          <h1 class="major" style="text-align: center;">File Log</h1>
+          <p style="text-transform: uppercase;">Here you can find the logs of detected threats with their timestamps and locations.</p>
+        </div>
+      </section>
+      <!-- Panel (Table) -->
+      <section class="panel color1" style="width: 80vw;">
+        <div class="intro joined">
+          <h2 class="major">Logs</h2>
+          <table id="jsonTable"></table>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    fetch('file_log.json')
+      .then(response => response.json())
+      .then(data => {
+        const table = document.getElementById('jsonTable');
+        const headers = Object.keys(data[0]);
+        
+        // Create table header
+        const headerRow = document.createElement('tr');
+        headers.forEach(header => {
+          const th = document.createElement('th');
+          th.textContent = header;
+          headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+        
+        // Create table rows
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          headers.forEach(header => {
+            const td = document.createElement('td');
+            td.textContent = item[header];
+            td.style.color = 'black';
+            if (header.toLowerCase() === 'timestamp') {
+              td.classList.add('timestamp');
+            }
+            row.appendChild(td);
+          });
+          table.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching JSON:', error));
+  </script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      color: black;
+    }
+    th {
+      background-color: rgb(115,96,140);
+    }
+    .timestamp {
+      color: white;
+      background-color: rgb(115,96,140);
+    }
+  </style>
+</body>
+</html>
