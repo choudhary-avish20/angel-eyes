@@ -1,0 +1,2 @@
+# angel eyes
+ GuardianSight is a pair of discreet, stylish sunglasses designed to enhance women's safety. Equipped with an integrated camera and advanced AI, GuardianSight detects potential threats by analyzing visual and audio cues for signs of violent behavior or distress. Upon detection, the system instantly alerts designated contacts and emergency services, providing real-time location and relevant data.
